@@ -1,0 +1,6 @@
+git remote add origin https://github.com/Gayevyy-T/Space_game.git
+		git remote remove origin
+Git remote -v
+Git branch
+	*master
+git push --set-upstream origin master      (git push -u origin feature) -> the same
