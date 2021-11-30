@@ -1,6 +1,13 @@
+#1st initialize directory with "git init"
+
+
+
 git remote add origin https://github.com/Gayevyy-T/Space_game.git
 		git remote remove origin
 Git remote -v
-Git branch
+Git branch -v
 	*master
 git push --set-upstream origin master      (git push -u origin feature) -> the same
+
+
+after pull or clone repo with "git clone/pull/fetch"
