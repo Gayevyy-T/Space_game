@@ -16,10 +16,11 @@ FPS = 60
 
 FONT = pygame.font.SysFont("calibri", 50)
 
+POINTER_WIDTH, POINTER_HEIGHT = 55, 40
 POINTER_IMAGE = pygame.image.load(os.path.join("Assets","pointer.png"))
-POINTER = pygame.transform.scale(POINTER_IMAGE, (55, 40)) #resize ship to 55 width and 40 height
+POINTER = pygame.transform.scale(POINTER_IMAGE, (POINTER_WIDTH, POINTER_HEIGHT)) #resize ship to 55 width and 40 height
 
-def draw_window():
+def draw_window(pointer_rect):
     WIN.fill(YELLOW) #fill the popped up window to white
 #     WIN.blit(SPACE, (0, 0)) #pasting the space immage to the game
 #     '''pygame.draw.rect(WIN, BLACK, BORDER) #draw rect in the WINdow; COLOR; what we draw(somewhere defined rect)'''
@@ -29,44 +30,40 @@ def draw_window():
     WIN.blit(choose, (150, 130))
     WIN.blit(option1, (200, 200))
     WIN.blit(option2, (200, 250))
-
-#     keys_pressed = pygame.key.get_pressed()
-#     st = WIN.blit(POINTER, (200 - 60, 200))
-#     nd = WIN.blit(POINTER, (200 - 60, 250))
-#     if keys_pressed[pygame.K_DOWN]:
-        
-
-#     ### '''WIN.blit(YELLOW_SPACESHIP, (300,100)) #blit - to display immage on the screen,(define posiiton(start from top left corner))  "300 -> right & 100 down"'''
-#     WIN.blit(YELLOW_SPACESHIP, (yellow.x, yellow.y)) #yellow.x & .y --> take arguments from vars in main -> yellow (100 & 300)
-#     WIN.blit(RED_SPACESHIP, (red.x, red.y))
-
-#     for bullet in red_bullets:
-#         pygame.draw.rect(WIN, RED, bullet)
-#     for bullet in yellow_bullets:
-#         pygame.draw.rect(WIN, YELLOW, bullet)    
+    
+    WIN.blit(POINTER, (pointer_rect.x, pointer_rect.y))
 
     pygame.display.update() #update is needed every time when something is changing
 
+def move_arrow(keys_pressed, pointer_rect):
+    if keys_pressed[pygame.K_UP]: #UP move
+        pointer_rect.y = 200
+    if keys_pressed[pygame.K_DOWN]: #DOWN move
+        pointer_rect.y = 250
+
+
 
 def main():
+
+    pointer_rect = pygame.Rect(200 - 60, 200, POINTER_WIDTH, POINTER_HEIGHT) #drowe rectangle
+
+    clock = pygame.time.Clock() #defining clock to control FPS
     run = True
-    clock = pygame.time.Clock()
     while run:
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #QUIT event is when we press "x" on the popped up window of the game
                 run = False     #If change to "True", the game window will be not possible to close
                 pygame.quit()
-    
 
-            
+        keys_pressed = pygame.key.get_pressed()
 
+        move_arrow(keys_pressed, pointer_rect)
 
-            draw_window()
-            
-           
+        draw_window(pointer_rect)
+
 
     main() # to start the game again
-
+    
 if __name__ == "__main__":
     main()
